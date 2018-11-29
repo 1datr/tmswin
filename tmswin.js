@@ -1,3 +1,15 @@
+/*
+ 'HTML_body'=>$_HTML,
+ 'HTML_header'=>$opts['HTML_header'],
+ 'HTML_footer'=>$opts['HTML_footer'],
+ 'HTML_before_header'=>$opts['HTML_before_header'],
+ 'HTML_after_footer'=>$opts['HTML_after_footer'],  
+ 'JS'=>array_keys($js),
+ 'CSS'=>array_keys($css),
+ 'JS_INLINE'=>$_module_base_html->_INLINE_SCRIPT,
+ 'TITLE'=>$_module_base_html->_HEADINFO['title'],
+ 'win_id'=>$opts['win_id'],
+*/
 (function($){
 	Array.prototype.in_array = function(p_val) {
 		for(var i = 0, l = this.length; i < l; i++)	{
