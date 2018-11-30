@@ -9,16 +9,15 @@
  'JS_INLINE'=>$_module_base_html->_INLINE_SCRIPT,
  'TITLE'=>$_module_base_html->_HEADINFO['title'],
  'win_id'=>$opts['win_id'],
-*/
-(function($){
-	Array.prototype.in_array = function(p_val) {
+*/(function($){
+	/*Array.prototype.in_array = function(p_val) {
 		for(var i = 0, l = this.length; i < l; i++)	{
 			if(this[i] == p_val) {
 				return true;
 			}
 		}
 		return false;
-	}
+	}*/
 	
     var defaults = {};
     $.fn.TMS_Win_Stack = new Array();
@@ -257,4 +256,39 @@ function close_and_update(wid,page_url){
 		}
 	}
 }
+
+jQuery.expr[':'].regex = function(elem, index, match) 
+{
+    var matchParams = match[3].split(','),
+        validLabels = /^(data|css):/,
+        attr = {
+            method: matchParams[0].match(validLabels) ? 
+                        matchParams[0].split(':')[0] : 'attr',
+            property: matchParams.shift().replace(validLabels,'')
+        },
+        regexFlags = 'i',
+        regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
+    return regex.test(jQuery(elem)[attr.method](attr.property));
+}
+
+$(document).ready(function(){
+	
+	
+	//$('body').on( "click", 'a:regex(href,^tmswin:)', function(e)
+	$('body').on( "click", 'a[href^="tmswin:"]', function(e) 			
+	{
+		e.preventDefault(); //отменяем переход по ссылке
+		var href = $(e.target).prop('href');
+		var modal_url =	href.substring(7);
+		//if(_post_data===undefined)
+		var _post_data={};
+		//if(_opts===undefined) 
+		var _opts={};
+		//console.log('clicked');
+		$('body').TMSWin($('body'),{url:modal_url,post_data:_post_data,opts:_opts});
+	//	return true;
+	});
+	
+
+});
    
