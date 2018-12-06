@@ -144,7 +144,7 @@
 		    	
 		    	//$(this.instance).trigger('modal_load',{wid : windata.win_id})
 		    },  
-		    update_win_by_data(windata)
+		    update_win_by_data : function(windata)
 		    {
 		    	var new_html = this.get_win_html(windata,false);
 		    	this.instance.html(new_html);
@@ -162,7 +162,7 @@
 			    	    {
 			    	    	// when get result
 			    			w_obj.update_win_by_data(windata);
-			    			$(win_obj.instance).trigger('modal_load',{wid : windata.win_id});
+			    			$(w_obj.instance).trigger('modal_load',{wid : windata.win_id});
 			    	    }
 			    	);
 		    		
@@ -246,6 +246,23 @@ function update_win(_wid)
 	}
 }
 
+function close_current()
+{
+	$.fn.TMS_Win_Stack[$.fn.TMS_Win_Stack.length-1].close();
+}
+
+
+function close_win(_wid)
+{
+	for(i=0;i<$.fn.TMS_Win_Stack.length;i++)
+	{
+		if($.fn.TMS_Win_Stack[i].windata.wid=_wid)
+		{
+			$.fn.TMS_Win_Stack[i].close();
+		}
+	}
+}
+
 function close_and_update(wid,page_url){
 	$.fn.TMS_Win_Stack[$.fn.TMS_Win_Stack.length-1].close();
 	for(i=0;i<$.fn.TMS_Win_Stack.length;i++)
@@ -274,8 +291,8 @@ jQuery.expr[':'].regex = function(elem, index, match)
 $(document).ready(function(){
 	
 	
-	//$('body').on( "click", 'a:regex(href,^tmswin:)', function(e)
-	$('body').on( "click", 'a[href^="tmswin:"]', function(e) 			
+	$('body').on( "click", 'a:regex(href,^tmswin:)', function(e)
+//	$('body').on( "click", 'a[href^="tmswin:"]', function(e) 			
 	{
 		e.preventDefault(); //отменяем переход по ссылке
 		var href = $(e.target).prop('href');
